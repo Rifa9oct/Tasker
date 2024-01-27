@@ -16,6 +16,17 @@ const TaskBoard = () => {
     setShowModal(false);
   };
 
+  const handleisFavourite = (taskId) => {
+    const favourite = tasks.map((task) => {
+      if (task.id === taskId) {
+        return { ...task, isFavourite: !task.isFavourite };
+      } else {
+        return task;
+      }
+    });
+    setTasks(favourite);
+  };
+
   return (
     <div className="mb-20">
       {showModal && <TaskModal handleCloseTask={handleCloseTask}></TaskModal>}
@@ -25,13 +36,11 @@ const TaskBoard = () => {
           <div className="mb-14 items-center justify-between sm:flex">
             <h2 className="text-2xl font-semibold max-sm:mb-4">Your Tasks</h2>
 
-            <TaskAction
-              handleAddTask={() => setShowModal(true)}
-            ></TaskAction>
+            <TaskAction handleAddTask={() => setShowModal(true)}></TaskAction>
           </div>
 
           {/* task list  */}
-          <TaskList tasks={tasks}></TaskList>
+          <TaskList handleisFavourite={handleisFavourite} tasks={tasks}></TaskList>
         </div>
       </div>
     </div>
