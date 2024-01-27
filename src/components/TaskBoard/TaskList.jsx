@@ -1,6 +1,6 @@
 
 
-const TaskList = ({ tasks, handleisFavourite, searchValue, setShowDeleteModal, setDeleteTask}) => {
+const TaskList = ({ tasks, handleisFavourite, handleEditTask, searchValue, setShowDeleteModal, setDeleteTask}) => {
 
   const handleClick = (task)=>{
     setShowDeleteModal(true)
@@ -112,7 +112,11 @@ const TaskList = ({ tasks, handleisFavourite, searchValue, setShowDeleteModal, s
                     >
                       Delete
                     </button>
-                    <button className="text-blue-500">Edit</button>
+                    <button 
+                    onClick={()=>handleEditTask(task)}
+                    className="text-blue-500"
+                    >Edit
+                    </button>
                   </div>
                 </td>
               </tr>

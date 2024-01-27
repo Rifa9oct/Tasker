@@ -1,6 +1,6 @@
 import SearchTask from "./SearchTask";
 
-const TaskAction = ({ handleAddTask, setShowDeleteAllModal }) => {
+const TaskAction = ({ tasks, handleAddTask, setShowDeleteAllModal }) => {
   return (
     <div className="flex items-center space-x-5">
       <SearchTask></SearchTask>
@@ -12,7 +12,8 @@ const TaskAction = ({ handleAddTask, setShowDeleteAllModal }) => {
         Add Task
       </button>
       <button
-        onClick={()=> setShowDeleteAllModal(true)}
+        disabled={tasks.length === 0}
+        onClick={() => setShowDeleteAllModal(true)}
         className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold"
       >
         Delete All

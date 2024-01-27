@@ -8,7 +8,7 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DeleteAllModal from "./DeleteAllModal";
 import DeleteModal from "./DeleteModal";
-import notask from "./../../assets/notask.png"
+import notask from "./../../assets/notask.png";
 
 const TaskBoard = () => {
   const [tasks, setTasks] = useState(initialTasks);
@@ -17,28 +17,58 @@ const TaskBoard = () => {
   const [showDeleteAllModal, setShowDeleteAllModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [taskToUpdate, setTaskToUpdate] = useState(null);
 
-  const handleAddTask = (e, newTask) => {
+  const handleAddTask = (e, newTask, isAdd) => {
     e.preventDefault();
-    setTasks([...tasks, newTask]);
+    if (isAdd) {
+      setTasks([...tasks, newTask]);
+      toast.success("Task has added successfully !", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
+    } else {
+      setTasks(
+        tasks.map((task) => {
+          if (task.id === newTask.id) {
+            setTaskToUpdate(null);
+            return newTask;
+          }
+          return task;
+        })
+      );
+      toast.success("Task has edit successfully !", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
+    }
     setShowModal(false);
-    toast.success("Task has added successfully !", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-      transition: Bounce,
-    });
+  };
+
+  const handleEditTask = (task) => {
+    setTaskToUpdate(task);
+    setShowModal(true);
   };
 
   const handleDeleteAllTask = () => {
     tasks.length = 0;
     setTasks([...tasks]);
   };
+
   const handleDeleteTask = (task) => {
     const filteredTask = tasks.filter((item) => item.id !== task.id);
     setTasks(filteredTask);
@@ -46,6 +76,7 @@ const TaskBoard = () => {
 
   const handleCloseTask = () => {
     setShowModal(false);
+    setTaskToUpdate(null);
   };
 
   const handleisFavourite = (taskId) => {
@@ -64,10 +95,12 @@ const TaskBoard = () => {
       <div className="mb-20">
         {showModal && (
           <TaskModal
+            taskToUpdate={taskToUpdate}
             handleAddTask={handleAddTask}
             handleCloseTask={handleCloseTask}
           ></TaskModal>
         )}
+
         {showDeleteAllModal && (
           <DeleteAllModal
             handleDeleteTask={handleDeleteTask}
@@ -75,6 +108,7 @@ const TaskBoard = () => {
             setShowDeleteAllModal={setShowDeleteAllModal}
           ></DeleteAllModal>
         )}
+
         {showDeleteModal && (
           <DeleteModal
             deleteTask={deleteTask}
@@ -89,27 +123,30 @@ const TaskBoard = () => {
               <h2 className="text-2xl font-semibold max-sm:mb-4">Your Tasks</h2>
 
               <TaskAction
+                tasks={tasks}
                 setShowDeleteAllModal={setShowDeleteAllModal}
                 handleAddTask={() => setShowModal(true)}
               ></TaskAction>
             </div>
 
-            {
-              (tasks.length>0)? (<TaskList
+            {tasks.length > 0 ? (
+              <TaskList
+                handleEditTask={handleEditTask}
                 setShowDeleteModal={setShowDeleteModal}
                 handleDeleteTask={handleDeleteTask}
                 handleisFavourite={handleisFavourite}
                 tasks={tasks}
                 searchValue={searchValue}
                 setDeleteTask={setDeleteTask}
-              ></TaskList>) : (
-                <div>
-                  <img className="w-1/4 mx-auto mb-8" src={notask} alt="notask" />
-                  <h1 className="text-3xl text-yellow text-center font-bold">There are no tasks! Please add some task.</h1>
-                </div>
-              )
-            }
-            
+              ></TaskList>
+            ) : (
+              <div>
+                <img className="w-1/4 mx-auto mb-8" src={notask} alt="notask" />
+                <h1 className="text-3xl text-yellow text-center font-bold">
+                  There are no tasks! Please add some task.
+                </h1>
+              </div>
+            )}
           </div>
         </div>
         <ToastContainer />
