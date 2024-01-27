@@ -5,7 +5,7 @@ export  const initialTasks = [
         "description": "Connect an existing API to a third-party database using secure methods and handle data exchange efficiently.",
         "tags": ["Web", "Python", "API"],
         "priority": "High",
-        "isFavourite": true
+        "isFavourite": false
     },
     {
         "id": crypto.randomUUID(),

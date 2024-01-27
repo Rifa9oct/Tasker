@@ -4,7 +4,7 @@ const TaskAction = ({ handleAddTask }) => {
   return (
     <div className="flex items-center space-x-5">
       <SearchTask></SearchTask>
-      
+
       <button
         onClick={handleAddTask}
         className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold"
