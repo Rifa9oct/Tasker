@@ -8,6 +8,7 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DeleteAllModal from "./DeleteAllModal";
 import DeleteModal from "./DeleteModal";
+import notask from "./../../assets/notask.png"
 
 const TaskBoard = () => {
   const [tasks, setTasks] = useState(initialTasks);
@@ -21,7 +22,7 @@ const TaskBoard = () => {
     e.preventDefault();
     setTasks([...tasks, newTask]);
     setShowModal(false);
-    toast.success("Task added successfully !", {
+    toast.success("Task has added successfully !", {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -93,14 +94,22 @@ const TaskBoard = () => {
               ></TaskAction>
             </div>
 
-            <TaskList
-              setShowDeleteModal={setShowDeleteModal}
-              handleDeleteTask={handleDeleteTask}
-              handleisFavourite={handleisFavourite}
-              tasks={tasks}
-              searchValue={searchValue}
-              setDeleteTask={setDeleteTask}
-            ></TaskList>
+            {
+              (tasks.length>0)? (<TaskList
+                setShowDeleteModal={setShowDeleteModal}
+                handleDeleteTask={handleDeleteTask}
+                handleisFavourite={handleisFavourite}
+                tasks={tasks}
+                searchValue={searchValue}
+                setDeleteTask={setDeleteTask}
+              ></TaskList>) : (
+                <div>
+                  <img className="w-1/4 mx-auto mb-8" src={notask} alt="notask" />
+                  <h1 className="text-3xl text-yellow text-center font-bold">There are no tasks! Please add some task.</h1>
+                </div>
+              )
+            }
+            
           </div>
         </div>
         <ToastContainer />

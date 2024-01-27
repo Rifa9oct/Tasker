@@ -6,7 +6,7 @@ const DeleteAllModal = ({setShowDeleteAllModal, handleDeleteAllTask}) => {
     const handleClick = ()=>{
         handleDeleteAllTask()
         setShowDeleteAllModal(false)
-        toast.success("Task delete successfully !", {
+        toast.success("Tasks has deleted successfully !", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -21,7 +21,7 @@ const DeleteAllModal = ({setShowDeleteAllModal, handleDeleteAllTask}) => {
 
   return (
     <>
-      <div className="bg-black bg-opacity-60 w-full h-full fixed left-0 top-0 z-50"></div>
+      <div className="bg-black bg-opacity-60 w-full h-full fixed left-0 top-0 z-50 backdrop-blur-sm"></div>
       <div className="fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] z-50 flex flex-col justify-center items-center w-[450px] py-12 bg-white rounded-md shadow-md">
         <IoWarningOutline className="text-red-500 text-8xl" />
         <h1 className="text-center text-black mb-12 text-4xl font-bold">
