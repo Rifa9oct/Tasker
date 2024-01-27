@@ -1,5 +1,12 @@
-const TaskList = ({ tasks, handleisFavourite, searchValue }) => {
 
+
+const TaskList = ({ tasks, handleisFavourite, searchValue, setShowDeleteModal, setDeleteTask}) => {
+
+  const handleClick = (task)=>{
+    setShowDeleteModal(true)
+    setDeleteTask(task)
+  }
+  
   return (
     <div className="overflow-auto">
       <table className="table-fixed overflow-auto xl:w-full">
@@ -29,15 +36,17 @@ const TaskList = ({ tasks, handleisFavourite, searchValue }) => {
           </tr>
         </thead>
         <tbody>
-          {tasks.filter((item) => {
-              if (searchValue.toLowerCase() === ""){
+          {tasks
+            .filter((item) => {
+              if (searchValue.toLowerCase() === "") {
                 return item;
               } else {
                 return item.title
                   .toLowerCase()
                   .includes(searchValue.toLowerCase());
               }
-            }).map((task) => (
+            })
+            .map((task) => (
               <tr
                 key={task.id}
                 className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2"
@@ -97,7 +106,12 @@ const TaskList = ({ tasks, handleisFavourite, searchValue }) => {
                 <td className="text-center">{task.priority}</td>
                 <td>
                   <div className="flex items-center justify-center space-x-3">
-                    <button className="text-red-500">Delete</button>
+                    <button
+                      onClick={() => handleClick(task)}
+                      className="text-red-500"
+                    >
+                      Delete
+                    </button>
                     <button className="text-blue-500">Edit</button>
                   </div>
                 </td>
