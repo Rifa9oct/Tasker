@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ImCross } from "react-icons/im";
 import { BiSolidErrorCircle } from "react-icons/bi";
+import { TaskContext } from "../../contexts/TaskContext";
 
-const TaskModal = ({ handleAddTask, handleCloseTask, taskToUpdate }) => {
+const TaskModal = () => {
+
+  const { handleAddTask, handleCloseTask, taskToUpdate } = useContext(TaskContext)
+
   const [requiredFields, setRequiredFields] = useState([]);
   const [isAdd, setIsAdd] = useState(Object.is(taskToUpdate, null));
 

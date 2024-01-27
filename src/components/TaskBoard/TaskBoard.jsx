@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { initialTasks } from "../../TaskData/initialTasks";
-import { SearchContext } from "../../contexts/SearchContext";
+import { TaskContext } from "../../contexts/TaskContext";
 import TaskAction from "./TaskAction";
 import TaskList from "./TaskList";
 import TaskModal from "./TaskModal";
@@ -90,31 +90,29 @@ const TaskBoard = () => {
     setTasks(favourite);
   };
 
+  const taskData = {
+    tasks,
+    searchValue, setSearchValue,
+    taskToUpdate, handleAddTask, handleCloseTask,
+    handleDeleteTask, handleDeleteAllTask, setShowDeleteAllModal,
+    deleteTask, setShowDeleteModal,
+    setShowModal,
+    handleEditTask, handleisFavourite, setDeleteTask,
+  }
+
   return (
-    <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+    <TaskContext.Provider value={taskData}>
       <div className="mb-20">
         {showModal && (
-          <TaskModal
-            taskToUpdate={taskToUpdate}
-            handleAddTask={handleAddTask}
-            handleCloseTask={handleCloseTask}
-          ></TaskModal>
+          <TaskModal></TaskModal>
         )}
 
         {showDeleteAllModal && (
-          <DeleteAllModal
-            handleDeleteTask={handleDeleteTask}
-            handleDeleteAllTask={handleDeleteAllTask}
-            setShowDeleteAllModal={setShowDeleteAllModal}
-          ></DeleteAllModal>
+          <DeleteAllModal></DeleteAllModal>
         )}
 
         {showDeleteModal && (
-          <DeleteModal
-            deleteTask={deleteTask}
-            handleDeleteTask={handleDeleteTask}
-            setShowDeleteModal={setShowDeleteModal}
-          ></DeleteModal>
+          <DeleteModal></DeleteModal>
         )}
 
         <div className="container">
@@ -122,23 +120,11 @@ const TaskBoard = () => {
             <div className="mb-14 items-center justify-between sm:flex">
               <h2 className="text-2xl font-semibold max-sm:mb-4">Your Tasks</h2>
 
-              <TaskAction
-                tasks={tasks}
-                setShowDeleteAllModal={setShowDeleteAllModal}
-                handleAddTask={() => setShowModal(true)}
-              ></TaskAction>
+              <TaskAction></TaskAction>
             </div>
 
             {tasks.length > 0 ? (
-              <TaskList
-                handleEditTask={handleEditTask}
-                setShowDeleteModal={setShowDeleteModal}
-                handleDeleteTask={handleDeleteTask}
-                handleisFavourite={handleisFavourite}
-                tasks={tasks}
-                searchValue={searchValue}
-                setDeleteTask={setDeleteTask}
-              ></TaskList>
+              <TaskList></TaskList>
             ) : (
               <div>
                 <img className="w-1/4 mx-auto mb-8" src={notask} alt="notask" />
@@ -149,9 +135,10 @@ const TaskBoard = () => {
             )}
           </div>
         </div>
+        
         <ToastContainer />
       </div>
-    </SearchContext.Provider>
+    </TaskContext.Provider>
   );
 };
 

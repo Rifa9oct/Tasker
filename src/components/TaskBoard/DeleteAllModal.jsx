@@ -1,12 +1,15 @@
+import { useContext } from "react";
 import { IoWarningOutline } from "react-icons/io5";
 import { Bounce, toast } from "react-toastify";
+import { TaskContext } from "../../contexts/TaskContext";
 
-const DeleteAllModal = ({setShowDeleteAllModal, handleDeleteAllTask}) => {
+const DeleteAllModal = () => {
+  const {setShowDeleteAllModal, handleDeleteAllTask} = useContext(TaskContext)
 
     const handleClick = ()=>{
         handleDeleteAllTask()
         setShowDeleteAllModal(false)
-        toast.success("Tasks has deleted successfully !", {
+        toast.success("All Tasks has deleted successfully !", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -30,7 +33,7 @@ const DeleteAllModal = ({setShowDeleteAllModal, handleDeleteAllTask}) => {
         </h1>
         <div className="flex justify-center gap-6">
           <button onClick={handleClick} className="bg-blue-500 px-5 py-3 rounded-md">
-            Yes, delete it!
+            Yes, Delete All
           </button>
           <button onClick={()=> setShowDeleteAllModal(false)} className="bg-red-500 px-5 py-3 rounded-md">Cancle</button>
         </div>

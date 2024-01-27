@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { SearchContext } from "../../contexts/SearchContext";
+import { TaskContext } from "../../contexts/TaskContext";
 
 const SearchTask = () => {
-  const { searchValue, setSearchValue} = useContext(SearchContext);
+  const { searchValue, setSearchValue} = useContext(TaskContext);
   
   const handleSearch = (e) => {
     e.preventDefault();

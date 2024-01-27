@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import { IoWarningOutline } from "react-icons/io5";
 import { Bounce, toast } from "react-toastify";
+import { TaskContext } from "../../contexts/TaskContext";
 
-const DeleteModal = ({setShowDeleteModal, handleDeleteTask, deleteTask}) => {
-    
+const DeleteModal = () => {
+  const { setShowDeleteModal, handleDeleteTask, deleteTask } = useContext(TaskContext);
+  
   const handleClick = () => {
     handleDeleteTask(deleteTask);
     setShowDeleteModal(false);

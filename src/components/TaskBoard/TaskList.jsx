@@ -1,12 +1,21 @@
+import { useContext } from "react";
+import { TaskContext } from "../../contexts/TaskContext";
 
+const TaskList = () => {
+  const {
+    tasks,
+    handleisFavourite,
+    handleEditTask,
+    searchValue,
+    setShowDeleteModal,
+    setDeleteTask,
+  } = useContext(TaskContext);
 
-const TaskList = ({ tasks, handleisFavourite, handleEditTask, searchValue, setShowDeleteModal, setDeleteTask}) => {
+  const handleClick = (task) => {
+    setShowDeleteModal(true);
+    setDeleteTask(task);
+  };
 
-  const handleClick = (task)=>{
-    setShowDeleteModal(true)
-    setDeleteTask(task)
-  }
-  
   return (
     <div className="overflow-auto">
       <table className="table-fixed overflow-auto xl:w-full">
@@ -40,7 +49,7 @@ const TaskList = ({ tasks, handleisFavourite, handleEditTask, searchValue, setSh
             .filter((item) => {
               if (searchValue.toLowerCase() === "") {
                 return item;
-              } else {
+              }else {
                 return item.title
                   .toLowerCase()
                   .includes(searchValue.toLowerCase());
@@ -112,10 +121,11 @@ const TaskList = ({ tasks, handleisFavourite, handleEditTask, searchValue, setSh
                     >
                       Delete
                     </button>
-                    <button 
-                    onClick={()=>handleEditTask(task)}
-                    className="text-blue-500"
-                    >Edit
+                    <button
+                      onClick={() => handleEditTask(task)}
+                      className="text-blue-500"
+                    >
+                      Edit
                     </button>
                   </div>
                 </td>

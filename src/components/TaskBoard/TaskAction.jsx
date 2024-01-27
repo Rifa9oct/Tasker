@@ -1,12 +1,15 @@
+import { useContext } from "react";
 import SearchTask from "./SearchTask";
+import { TaskContext } from "../../contexts/TaskContext";
 
-const TaskAction = ({ tasks, handleAddTask, setShowDeleteAllModal }) => {
+const TaskAction = () => {
+  const { tasks, setShowModal, setShowDeleteAllModal } = useContext(TaskContext)
   return (
     <div className="flex items-center space-x-5">
       <SearchTask></SearchTask>
 
       <button
-        onClick={handleAddTask}
+        onClick={() => setShowModal(true)}
         className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold"
       >
         Add Task
